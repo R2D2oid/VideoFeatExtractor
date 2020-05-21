@@ -18,7 +18,7 @@ def get_frame_snapshot_at(input_vid, sec):
         return hasFrames, image
     return False, None
 
-def get_video_frames(input_vid, output_dir, start_sec = 0, end_sec = 10000, fps = 10):
+def get_video_frames(input_vid, output_dir, start_sec = 0, end_sec = 10000, fps = None):
     '''
     splits a given input video break it into image frames and stores them in the output dir
     
@@ -30,6 +30,9 @@ def get_video_frames(input_vid, output_dir, start_sec = 0, end_sec = 10000, fps 
     Returns:
         None
     '''
+    if fps == None:
+        fps = input_vid.get(cv2.CAP_PROP_FPS)
+    
     frameRate = 1.0/fps
     
     sec = start_sec
