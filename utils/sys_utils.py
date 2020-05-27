@@ -9,7 +9,18 @@ def get_files_path(path_):
         Output: 
             a list of files
     '''
-    return [join(path_, f) for f in listdir(path_) if isfile(join(path_, f))]
+    return [join(path_, f) for f in listdir(path_) if isfile(join(path_, f)) and f[0] != '.']
+
+
+def get_subfolders_path(path_):
+    '''
+        Given a path returns all the folders under that path
+        Input: 
+            folderpath
+        Output: 
+            a list of subfolders
+    '''
+    return [join(path_, f) for f in listdir(path_) if not isfile(join(path_, f))]
 
 
 def run_cmd(cmd):
@@ -27,12 +38,13 @@ def run_cmd(cmd):
 
 
 def read_csv(csv_path):
+    import csv
     output = []
 
     with open(csv_path, 'r') as csvfile:
         reader = csv.reader(csvfile, quoting = csv.QUOTE_ALL)
         for row in reader: # each row is a list
-            row = [float(v) for v in row ]
+            #row = [float(v) for v in row ]
             output.append(row)
 
     return output
